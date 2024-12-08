@@ -9,9 +9,15 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 if ($uri === '/register' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $controller = new AuthController();
     $controller->showRegisterForm();
-} elseif ($uri === '/register' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+} else if ($uri === '/register' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $controller = new AuthController();
     $controller->register();
+} else if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+    $controller = new AuthController();
+    $controller->showLoginForm();
+} else if ($uri === '/login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $controller = new AuthController();
+    $controller->login();
 } else {
     echo "404 Not Found";
 }

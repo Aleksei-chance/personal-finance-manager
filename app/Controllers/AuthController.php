@@ -8,12 +8,12 @@ use Exception;
 
 class AuthController
 {
-    public function showRegisterForm()
+    public function showRegisterForm(): void
     {
         require __DIR__ . '/../Views/auth/register.php';
     }
 
-    public function register()
+    public function register(): void
     {
         try {
             $db = Database::connect();
@@ -39,6 +39,37 @@ class AuthController
             echo "Регистрация успешна! <a href='/login'>Войти</a>";
         } catch (Exception $e) {
             die("Ошибка регистрации: " . $e->getMessage());
+        }
+    }
+
+    public function showLoginForm(): void
+    {
+        require __DIR__ . '/../Views/auth/login.php';
+    }
+
+    public function login(): void
+    {
+        try {
+            $db = Database::connect();
+
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            $stmt = $db->prepare("SELECT * FROM users WHERE email = :email");
+            $stmt->execute(['email' => $email]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if(!$user || !password_verify($password, $user['password'])) {
+                die("Неверный email или пароль.");
+            }
+
+            session_start();
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['name'];
+
+            echo "Добро пожаловать, {$user['name']}! <a href='/logout'>Выйти</a>";
+        } catch (Exception $e) {
+            die("Ошибка авторизации: " . $e->getMessage());
         }
     }
 }
