@@ -5,6 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use App\Controllers\AuthController;
 use App\Controllers\CategoryController;
 use App\Controllers\TransactionController;
+use App\Controllers\ReportController;
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -32,6 +33,9 @@ if ($uri === '/register' && $_SERVER['REQUEST_METHOD'] === 'GET') {
 } else if ($uri === '/transactions/create' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $controller = new TransactionController();
     $controller->create();
+} else if ($uri === '/reports' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+    $controller = new ReportController();
+    $controller->index();
 } else {
     echo "404 Not Found";
 }
