@@ -31,6 +31,10 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <?= htmlspecialchars($category['name']) ?>
                 <span class="badge bg-secondary"><?= $category['type'] === 'income' ? 'Доход' : 'Расход' ?></span>
+                <div>
+                    <a href="/categories/edit?id=<?= $category['id'] ?>" class="btn btn-sm btn-warning">Редактировать</a>
+                    <a href="/categories/delete?id=<?= $category['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Вы уверены?')">Удалить</a>
+                </div>
             </li>
         <?php endforeach; ?>
     </ul>

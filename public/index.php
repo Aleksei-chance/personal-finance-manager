@@ -36,6 +36,15 @@ if ($uri === '/register' && $_SERVER['REQUEST_METHOD'] === 'GET') {
 } else if ($uri === '/reports' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $controller = new ReportController();
     $controller->index();
+} else if ($uri === '/categories/edit' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+    $controller = new CategoryController();
+    $controller->edit();
+} elseif ($uri === '/categories/update' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $controller = new CategoryController();
+    $controller->update();
+} elseif ($uri === '/categories/delete' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+    $controller = new CategoryController();
+    $controller->delete();
 } else {
     echo "404 Not Found";
 }
